@@ -1,18 +1,17 @@
-function slider() {
-    const deactivateActiveItem = require('../services/deactivateActiveItem'),
-        toggleActiveItem = require('../services/toggleActiveItem')
-    ;
+import deactivateActiveItem from '../services/deactivateActiveItem';
+import toggleActiveItem from '../services/toggleActiveItem';
 
+function slider({sliderContainer, allSlides, wrapper, sliderInner, nextArrow, prevArrow, totalCounter, currentCounter}) {
 
     //slider
-    const sliderPrevArrow = document.querySelector('.offer__slider-prev'),
-        sliderNextArrow = document.querySelector('.offer__slider-next'),
-        sliderWrapper = document.querySelector('.offer__slider-wrapper'),
-        offerSliderInner = document.querySelector('.offer__slider-inner'),
-        currentSlide = document.querySelector('#current'),
-        totalSlides = document.querySelector('#total'),
-        slides = document.querySelectorAll('.offer__slide'),
-        sliderBlock = document.querySelector('.offer__slider'),
+    const sliderPrevArrow = document.querySelector(prevArrow),
+        sliderNextArrow = document.querySelector(nextArrow),
+        sliderWrapper = document.querySelector(wrapper),
+        offerSliderInner = document.querySelector(sliderInner),
+        currentSlide = document.querySelector(currentCounter),
+        totalSlides = document.querySelector(totalCounter),
+        slides = document.querySelectorAll(allSlides),
+        sliderBlock = document.querySelector(sliderContainer),
         width = window.getComputedStyle(sliderWrapper).width
     ;
 
@@ -86,11 +85,13 @@ function slider() {
         dots[index-1].classList.add('active-dot');
 
         dotsContainer.addEventListener('click', (e) => {
-            slideIndex = e.target.getAttribute('data-index');
+            if(e.target && e.target.tagName === 'LI'){
+                slideIndex = e.target.getAttribute('data-index');
             
-            toggleActiveItem(e, 'dot', 'active-dot');
-            setCurrentSlideIndex(currentSlide, slideIndex);
-            setSlidePosition(offerSliderInner, slideIndex);
+                toggleActiveItem(e, 'dot', 'active-dot');
+                setCurrentSlideIndex(currentSlide, slideIndex);
+                setSlidePosition(offerSliderInner, slideIndex);
+            }
         });
     }
 
@@ -105,4 +106,4 @@ function slider() {
     }
 }
 
-module.exports = slider;
+export default slider;

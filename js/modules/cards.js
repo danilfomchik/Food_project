@@ -1,3 +1,5 @@
+import { getResource } from '../services/services';
+
 function cards() {
     // //daily menu class 1st variant
     // class DailyMenu{
@@ -103,28 +105,15 @@ function cards() {
     }
 
 
-
-
-    const getResource = async (url) => {
-        const result = await fetch(url);
-        
-        if(!result.ok){
-            throw new Error(`Could not fetch ${url}, status: ${result.status}`);
-        }
-
-        return await result.json();
-    };
-
-
-    // getResource('http://localhost:3000/menu')
-    // .then(data => {
-    //     data.forEach(({img, title, descr, price}) => {
-    //         new DailyMenu(img, title, descr, price, '.menu__field .container').renderDailyMenu();
-    //     });
-    // })
-    // .catch(() => {
-    //     console.error('error');
-    // })
+    getResource('http://localhost:3000/menu')
+    .then(data => {
+        data.forEach(({img, title, descr, price}) => {
+            new DailyMenu(img, title, descr, price, '.menu__field .container').renderDailyMenu();
+        });
+    })
+    .catch(() => {
+        console.error('error');
+    })
 
     // axios.get('http://localhost:3000/menu')
     // .then(response => {
@@ -134,4 +123,4 @@ function cards() {
     // })
 }
 
-module.exports = cards;
+export default cards;

@@ -12,4 +12,4 @@ function toggleActiveItem(e, itemSelector, activeClass) {
 }
 //!!!универсальная функция переключения активного класса между элементами!!!
 
-module.exports = toggleActiveItem;
+export default toggleActiveItem;

@@ -1,5 +1,7 @@
+import toggleActiveItem from '../services/toggleActiveItem';
+
+
 function calculator() {
-    const toggleActiveItem = require('../services/toggleActiveItem');
 
     //calculator
     const calculatingGender = document.querySelector('.calculating__choose#gender'),
@@ -122,4 +124,4 @@ function calculator() {
     });
 }
 
-module.exports = calculator;
+export default calculator;

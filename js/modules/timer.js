@@ -1,4 +1,4 @@
-function timer() {
+function timer(timerSelector, endDate) {
     //timer 1st variant
     // const deadLine = '2022-05-20';
 
@@ -58,9 +58,6 @@ function timer() {
 
 
     //timer 2nd variant
-    let endDate = '2022-12-21';
-    // let endDate = '2022-02-24';
-
 
     function getDate(deadline) {
         let endTime = 0;
@@ -74,9 +71,6 @@ function timer() {
             remainingMinutes = Math.floor((endTime / 1000 / 60) % 60),
             remainingSeconds = Math.floor((endTime / 1000) % 60)
         ;
-
-        // console.log(Date.parse(deadline));
-        // console.log(Date.parse(new Date()));
 
 
         return {
@@ -102,8 +96,6 @@ function timer() {
         function updateTime() {
             let {endTime, remainingDays, remainingHours, remainingMinutes, remainingSeconds} = getDate(deadline);
 
-            // console.log(endTime, remainingDays, remainingHours, remainingMinutes, remainingSeconds);
-
             days.textContent = getZero(remainingDays);
             hours.textContent = getZero(remainingHours)
             minutes.textContent = getZero(remainingMinutes);
@@ -123,7 +115,7 @@ function timer() {
         return number;
     }
 
-    showDate('.timer', endDate);
+    showDate(timerSelector, endDate);
 }
 
-module.exports = timer;
+export default timer;

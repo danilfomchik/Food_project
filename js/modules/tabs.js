@@ -1,4 +1,6 @@
-function tabs() {
+import deactivateActiveItem from '../services/deactivateActiveItem';
+
+function tabs(tabsSelector, tabContent, tabsSelectorItem, activeClass) {
     //tabs 1 variant
     // const tabheader__items = document.querySelector('.tabheader__items');
     // const tabcontent = document.querySelectorAll('.tabcontent');
@@ -30,37 +32,27 @@ function tabs() {
     //     }
     // });
 
-    const deactivateActiveItem = require('../services/deactivateActiveItem');
-
     //tabs 2 variant
-    const tabheader__items = document.querySelector('.tabheader__items');
-    const tabcontent = document.querySelectorAll('.tabcontent');
+    const tabheader__items = document.querySelector(tabsSelector);
+    const tabcontent = document.querySelectorAll(tabContent);
 
     tabheader__items.addEventListener('click', (e) => {
-        if(e.target && e.target.matches('div.tabheader__item')){
-            const item = tabheader__items.querySelectorAll('.tabheader__item');
+        if(e.target && e.target.matches(`div${tabsSelectorItem}`)){
+            const item = tabheader__items.querySelectorAll(tabsSelectorItem);
 
-            deactivateActiveItem(item, 'tabheader__item_active');
+            deactivateActiveItem(item, activeClass);
 
             tabcontent.forEach(tab => {
                 tab.classList.remove('active');
                 tab.classList.add('fade');
 
                 if(e.target.textContent === tab.getAttribute('data-name')){
-                    e.target.classList.add('tabheader__item_active');
+                    e.target.classList.add(activeClass);
                     tab.classList.toggle('active');
                 }
             });
         }
     });
-
-    // function deactivateActiveItem(nodeList, className) {
-    //     let arrFromNodeList = Array.from(nodeList);
-
-    //     arrFromNodeList.forEach(item => {
-    //         item.classList.remove(className)
-    //     });
-    // }
 }
 
-module.exports = tabs;
+export default tabs;

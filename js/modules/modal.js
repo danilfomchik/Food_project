@@ -1,50 +1,56 @@
-function modal() {
+function openModal(modalSelector, setModalTimer){
+    const modal = document.querySelector(modalSelector);
+
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+
+    if(setModalTimer){
+        clearInterval(setModalTimer);
+    }
+}
+
+function closeModal(modalSelector){
+    const modal = document.querySelector(modalSelector);
+
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
+function modal(triggerSelector, modalSelector, setModalTimer) {
     //MODAL
-    const modal = document.querySelector('.modal'),
-        modalOpenBtn = document.querySelectorAll('[data-modal]')
+    const modal = document.querySelector(modalSelector),
+        modalOpenBtn = document.querySelectorAll(triggerSelector)
     ;
 
     function showModalByScroll() {
         if(window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1){
-            openModal();
+            openModal(modalSelector, setModalTimer);
             window.removeEventListener('scroll', showModalByScroll);
         }
     }
     // window.addEventListener('scroll', showModalByScroll);
 
-    function openModal(){
-        modal.classList.add('show');
-        modal.classList.remove('hide');
-        document.body.style.overflow = 'hidden';
-
-        clearInterval(setModalTimer);
-    }
-
-    function closeModal(){
-        modal.classList.add('hide');
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-    }
-
     modalOpenBtn.forEach(btn => {
-        btn.addEventListener('click', openModal);
+        btn.addEventListener('click', () => {
+            openModal(modalSelector, setModalTimer);
+        });
     });
 
-    const setModalTimer = setTimeout(openModal, 1000000);
-
-    
 
     document.addEventListener('keydown', (e) => {
         if(e.key === 'Escape' && modal.classList.contains('show')){
-            closeModal();
+            closeModal(modalSelector);
         }
     });
 
     modal.addEventListener('click', (e) => {
         if(e.target.matches('.modal') || e.target.getAttribute('data-close') == ''){
-            closeModal();
+            closeModal(modalSelector);
         }
     });
 }
 
-module.exports = modal;
+export default modal;
+export {closeModal, openModal};

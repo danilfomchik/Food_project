@@ -6,4 +6,4 @@ function deactivateActiveItem(nodeList, className) {
     });
 }
 
-module.exports = deactivateActiveItem;
+export default deactivateActiveItem;
